@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: clothmarket-backend
+    runtime: docker
+    rootDir: cloth-marketplace/backend
+    plan: free
+    envVars:
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: CLOUDINARY_URL
+        sync: false
+      - key: DDL_AUTO
+        value: update
+      - key: SHOW_SQL
+        value: "false"
+      - key: APP_LOG_LEVEL
+        value: INFO
+      - key: SPRING_LOG_LEVEL
+        value: WARN

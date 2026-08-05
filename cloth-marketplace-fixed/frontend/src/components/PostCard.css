@@ -1,0 +1,435 @@
+.post-card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+/* ================= HEADER ================= */
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px;
+}
+
+.post-user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.post-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.post-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.post-user-details {
+  flex: 1;
+}
+
+.post-username {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  display: block;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+/* ✅ Desktop par bhi dikhega */
+.post-date {
+  font-size: 12px;
+  color: #65676b;
+  cursor: default;
+}
+
+.meta-dot {
+  color: #65676b;
+}
+
+/* ================= DELETE ICON ================= */
+
+.delete-icon-btn {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #e53935;
+  cursor: pointer;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s;
+  flex-shrink: 0;
+}
+
+.delete-icon-btn:hover {
+  background: rgba(229, 57, 53, 0.1);
+  transform: scale(1.12);
+}
+
+/* ================= DESCRIPTION ================= */
+
+.post-description {
+  padding: 0 16px 12px;
+}
+
+.post-description p {
+  font-size: 15px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.see-more {
+  color: #1877f2;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  margin-left: 4px;
+  /* inline rakho taaki '...' ke saath ek hi line me aaye */
+  display: inline;
+}
+
+.see-more:hover {
+  text-decoration: underline;
+}
+
+.post-description p.collapsed {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-description p.expanded {
+  display: block;
+}
+
+
+/* ================= MEDIA ================= */
+
+/* ✅ Desktop par bhi dikhega */
+.post-media {
+  width: 100%;
+  overflow: hidden;
+}
+
+.post-image {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  display: block;
+  cursor:zoom-in;
+}
+
+.post-video{
+    width:100%;
+    max-height:500px;
+    display:block;
+    cursor:pointer;
+}
+
+/* purane class names bhi rakhe — compatibility ke liye */
+.post-media-image,
+.post-media-video {
+  width: 100%;
+  max-height: 600px;
+  object-fit: contain;
+}
+
+/* ================= DETAILS ================= */
+
+.post-details {
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.detail-label {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.detail-value {
+  color: var(--text-primary);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* ================= PRODUCT INFO ================= */
+
+.post-product-info {
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  border-top: 1px solid var(--border-color);
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.post-product-info span strong {
+  color: var(--text-primary);
+}
+
+/* ================= ACTION ================= */
+
+.post-actions {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+}
+
+.btn-connect,
+.connect-btn {
+  width: 100%;
+  background: var(--primary-color);
+  color: white;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.btn-connect:hover,
+.connect-btn:hover {
+  background: #166fe5;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 640px) {
+
+  .post-header,
+  .post-description,
+  .post-details,
+  .post-actions,
+  .post-product-info {
+    padding: 12px;
+  }
+
+  .post-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .avatar-placeholder {
+    font-size: 18px;
+  }
+
+  .delete-icon-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: #fff;
+    color: #e53935;
+    font-size: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+    margin-right: 6px;
+    transition: 0.3s;
+  }
+
+  .delete-icon-btn:hover {
+    background: #ffe5e5;
+  }
+}
+/* ================= DELETE MODAL ================= */
+
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.delete-modal {
+  width: 380px;
+  max-width: 90%;
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  animation: deletePopup 0.25s ease;
+}
+
+.delete-modal h3 {
+  margin: 0;
+  font-size: 22px;
+  color: #222;
+}
+
+.delete-modal p {
+  margin: 18px 0;
+  color: #666;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.delete-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel-btn,
+.confirm-delete-btn {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.cancel-btn {
+  background: #e5e7eb;
+  color: #111;
+}
+
+.cancel-btn:hover {
+  background: #d1d5db;
+}
+
+.confirm-delete-btn {
+  background: #e53935;
+  color: white;
+}
+
+.confirm-delete-btn:hover {
+  background: #c62828;
+}
+
+@keyframes deletePopup {
+  from {
+    transform: scale(.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+.media-preview-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.9);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+}
+
+.preview-image{
+    max-width:90%;
+    max-height:90%;
+    object-fit:contain;
+}
+
+.preview-video{
+    width:90%;
+    max-height:90%;
+}
+
+.close-preview{
+    position:absolute;
+    top:20px;
+    right:30px;
+    font-size:35px;
+    color:white;
+    background:none;
+    border:none;
+    cursor:pointer;
+}
+.close-preview:hover{
+    color:#ddd;
+}
+.preview-image,
+.preview-video{
+    animation:zoomOpen .25s ease;
+}
+
+@keyframes zoomOpen{
+    from{
+        transform:scale(.8);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
