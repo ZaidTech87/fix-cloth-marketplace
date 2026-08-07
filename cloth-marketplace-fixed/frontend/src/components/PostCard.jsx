@@ -72,7 +72,7 @@ const PostCard = ({ post, onPostDeleted, showDelete = false }) => {
   const navigate = useNavigate();
   const { user: currentUser } = useAuth();
 //   const baseURL = 'http://localhost:8080/api';
-const BASE_URL = "https://fix-cloth-marketplace-1.onrender.com";
+const baseURL = "https://fix-cloth-marketplace-1.onrender.com";
 
   const [expanded, setExpanded] = useState(false);
   const [deleting, setDeleting] = useState(false);
