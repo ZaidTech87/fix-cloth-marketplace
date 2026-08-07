@@ -43,6 +43,7 @@
   flex: 1;
   justify-content: space-evenly;
   align-items: center;
+  min-width: 0;
 }
 .nav-item {
   display: flex;
@@ -130,17 +131,28 @@
 }
 
 @media (max-width: 640px) {
-  .header-container {
-    padding: 8px;
-    gap: 6px;
+
+  .header-left {
+    width: 28px;
+    flex-shrink: 0;
+  }
+
+  .header-right {
+    flex-shrink: 0;
+  }
+
+  .header-nav {
+    flex: 1;
+    justify-content: space-evenly;
+    gap: 0;
   }
 
   .nav-item {
-    padding: 8px 5px;
+    padding: 6px;
   }
 
-  .logout-btn {
-    padding: 7px;
+  .nav-item svg {
+    font-size: 17px;
   }
 }
 /* Search bar row (below main nav) */
