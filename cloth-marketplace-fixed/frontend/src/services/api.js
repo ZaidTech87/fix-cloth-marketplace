@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // STEP 4 FIX: hardcoded localhost ki jagah env var se URL, taaki production
 // build me sahi backend domain use ho (Vite: VITE_API_BASE_URL in .env)
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+export const API_BASE_URL = "https://fix-cloth-marketplace-1.onrender.com/api";
 // STEP 4 FIX: WebSocket endpoint bhi ab env se, hardcoded localhost nahi
 export const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL || `${API_BASE_URL}/ws`;
 

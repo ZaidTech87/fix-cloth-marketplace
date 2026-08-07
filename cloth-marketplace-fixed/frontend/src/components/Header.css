@@ -40,11 +40,10 @@
 
 .header-nav {
   display: flex;
-  gap: 8px;
   flex: 1;
-  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
 }
-
 .nav-item {
   display: flex;
   align-items: center;
@@ -132,11 +131,16 @@
 
 @media (max-width: 640px) {
   .header-container {
-    padding: 8px 12px;
+    padding: 8px;
+    gap: 6px;
   }
-  
+
   .nav-item {
-    padding: 8px 10px;
+    padding: 8px 5px;
+  }
+
+  .logout-btn {
+    padding: 7px;
   }
 }
 /* Search bar row (below main nav) */
