@@ -163,13 +163,13 @@ useEffect(() => {
             to="/messages"
             className={`nav-item ${location.pathname === "/messages" ? "active" : ""}`}
           >
-            <span className="nav-icon-wrap">
-              <FaComments />
-              {unreadCount > 0 && (
-                <span className="nav-badge">{unreadCount > 9 ? '9+' : unreadCount}</span>
-              )}
-            </span>
-            <span>Messages</span>
+{/*             <span className="nav-icon-wrap"> */}
+{/*               <FaComments /> */}
+{/*               {unreadCount > 0 && ( */}
+{/*                 <span className="nav-badge">{unreadCount > 9 ? '9+' : unreadCount}</span> */}
+{/*               )} */}
+{/*             </span> */}
+{/*             <span>Messages</span> */}
           </Link>
 
           <Link
