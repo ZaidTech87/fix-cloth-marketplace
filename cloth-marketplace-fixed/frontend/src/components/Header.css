@@ -45,6 +45,11 @@
   align-items: center;
   min-width: 0;
 }
+
+.header-nav .nav-item {
+  min-width: 0;
+  flex-shrink: 1;
+}
 .nav-item {
   display: flex;
   align-items: center;
@@ -142,10 +147,16 @@
   }
 
   .header-nav {
-    flex: 1;
-    justify-content: space-evenly;
-    gap: 0;
-  }
+      flex: 1;
+      justify-content: space-between;
+      gap: 0;
+      min-width: 0;
+    }
+
+    .header-container {
+      padding: 10px 8px;
+      gap: 8px;
+    }
 
   .nav-item {
     padding: 6px;
