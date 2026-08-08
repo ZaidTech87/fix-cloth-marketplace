@@ -158,27 +158,31 @@ useEffect(() => {
             <FaPlus />
             <span>Post</span>
           </Link>
+<Link
+  to="/messages"
+  className={`nav-item ${location.pathname === "/messages" ? "active" : ""}`}
+>
+  <span className="nav-icon-wrap">
+    <FaComments />
+    {unreadCount > 0 && (
+      <span className="nav-badge">
+        {unreadCount > 9 ? "9+" : unreadCount}
+      </span>
+    )}
+  </span>
 
-          <Link
-            to="/messages"
-            className={`nav-item ${location.pathname === "/messages" ? "active" : ""}`}
-          >
-{/*             <span className="nav-icon-wrap"> */}
-{/*               <FaComments /> */}
-{/*               {unreadCount > 0 && ( */}
-{/*                 <span className="nav-badge">{unreadCount > 9 ? '9+' : unreadCount}</span> */}
-{/*               )} */}
-{/*             </span> */}
-{/*             <span>Messages</span> */}
-          </Link>
+  <span>Messages</span>
+</Link>
 
-          <Link
-            to={`/profile/${user?.userId}`}
-            className={`nav-item ${location.pathname.includes("/profile") ? "active" : ""}`}
-          >
-            <FaUser />
-            <span>Profile</span>
-          </Link>
+<Link
+  to={`/profile/${user?.userId}`}
+  className={`nav-item ${
+    location.pathname.includes("/profile") ? "active" : ""
+  }`}
+>
+  <FaUser />
+  <span>Profile</span>
+</Link>
 
         </nav>
 

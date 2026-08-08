@@ -15,17 +15,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * STEP 5 FIX: Pehle sab files "uploads/" folder me local disk pe save hoti
- * thi. Render/Heroku jaise free hosts pe disk ephemeral hoti hai - restart
- * ya redeploy hote hi saari uploaded images/videos/voice-notes gayab ho
- * jaati thi.
- *
- * Ab agar CLOUDINARY_URL env var set hai, files Cloudinary (persistent cloud
- * storage) par jaati hain aur ek permanent HTTPS URL milta hai. Agar
- * CLOUDINARY_URL set nahi hai (local dev), local disk fallback chalta hai
- * jaisa pehle tha - taaki bina Cloudinary account ke bhi local test kar sako.
- */
 @Service
 public class StorageService {
 
@@ -42,14 +31,11 @@ public class StorageService {
     }
 
     public boolean isCloudEnabled() {
+        System.out.println("DEBUG: cloudinaryUrl length = " + (cloudinaryUrl == null ? "NULL" : cloudinaryUrl.length()));
+        System.out.println("DEBUG: cloudinaryUrl value = [" + cloudinaryUrl + "]");
         return cloudinary() != null;
     }
 
-    /**
-     * @param file       file to store
-     * @param folder     logical folder, e.g. "posts", "profiles", "voice"
-     * @return public URL to access the stored file
-     */
     @SuppressWarnings("unchecked")
     public String store(MultipartFile file, String folder) throws IOException {
         String originalFilename = file.getOriginalFilename();
@@ -60,15 +46,21 @@ public class StorageService {
         String uniqueFilename = UUID.randomUUID() + extension;
 
         if (isCloudEnabled()) {
-            Map<String, Object> uploadResult = cloudinary().uploader().upload(
-                    file.getBytes(),
-                    ObjectUtils.asMap(
-                            "resource_type", "auto",
-                            "folder", "cloth-marketplace/" + folder,
-                            "public_id", uniqueFilename
-                    )
-            );
-            return (String) uploadResult.get("secure_url");
+            try {
+                Map<String, Object> uploadResult = cloudinary().uploader().upload(
+                        file.getBytes(),
+                        ObjectUtils.asMap(
+                                "resource_type", "auto",
+                                "folder", "cloth-marketplace/" + folder,
+                                "public_id", uniqueFilename
+                        )
+                );
+                return (String) uploadResult.get("secure_url");
+            } catch (Exception e) {
+                System.out.println("DEBUG: Cloudinary upload FAILED: " + e.getMessage());
+                e.printStackTrace();
+                // fall through to local storage as backup so post creation doesn't break
+            }
         }
 
         // Local disk fallback (dev only)
@@ -82,17 +74,12 @@ public class StorageService {
         return "/uploads/" + folder + "/" + uniqueFilename;
     }
 
-    /**
-     * Best-effort delete. For local files only (Cloudinary cleanup is optional
-     * and not required for correctness, so it's skipped here to keep this
-     * simple - can be added later with cloudinary().uploader().destroy(...)).
-     */
     public void deleteLocalIfApplicable(String mediaUrl) {
         if (isCloudEnabled() || mediaUrl == null || mediaUrl.isBlank() || !mediaUrl.startsWith("/uploads/")) {
             return;
         }
         try {
-            String relative = mediaUrl.substring(1); // drop leading slash
+            String relative = mediaUrl.substring(1);
             Path filePath = Paths.get(System.getProperty("user.dir"), relative.replace("/", File.separator));
             Files.deleteIfExists(filePath);
         } catch (Exception e) {
