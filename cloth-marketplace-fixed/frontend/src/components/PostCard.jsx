@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { postAPI } from '../services/api';
 import { FaMapMarkerAlt, FaTrash } from 'react-icons/fa';
 import './PostCard.css';
-
+import { postAPI, getMediaUrl } from '../services/api';
 // ===== FB STYLE DATE =====
 const getTimeAgo = (dateInput) => {
   if (!dateInput) return '';
@@ -71,8 +71,6 @@ const MAX_LENGTH = 120;
 const PostCard = ({ post, onPostDeleted, showDelete = false }) => {
   const navigate = useNavigate();
   const { user: currentUser } = useAuth();
-//   const baseURL = 'http://localhost:8080/api';
-const baseURL = "https://fix-cloth-marketplace-1.onrender.com";
 
   const [expanded, setExpanded] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -125,7 +123,7 @@ const baseURL = "https://fix-cloth-marketplace-1.onrender.com";
           <div className="post-avatar">
             {userProfileImage ? (
               <img
-                src={baseURL + userProfileImage}
+              src={getMediaUrl(x)}
                 alt={userName}
                 onError={(e) => {
                   e.target.style.display = 'none';
@@ -199,14 +197,14 @@ const baseURL = "https://fix-cloth-marketplace-1.onrender.com";
         <div className="post-media">
           {post.mediaType === 'video' ? (
            <video
-               src={baseURL + post.mediaUrl}
+             src={getMediaUrl(e.mediaUrl)}
                controls
                className="post-video"
                onClick={() => setPreviewMedia("video")}
            />
           ) : (
             <img
-                src={baseURL + post.mediaUrl}
+                src={getMediaUrl(e.mediaUrl)}
                 alt="Post media"
                 className="post-image"
                 onClick={() => setPreviewMedia("image")}
@@ -259,14 +257,14 @@ const baseURL = "https://fix-cloth-marketplace-1.onrender.com";
 
     {previewMedia === "image" ? (
       <img
-        src={baseURL + post.mediaUrl}
+       src={getMediaUrl(e.mediaUrl)}
         className="preview-image"
         onClick={(e) => e.stopPropagation()}
         alt="Preview"
       />
     ) : (
       <video
-        src={baseURL + post.mediaUrl}
+        src={getMediaUrl(e.mediaUrl)}
         controls
         autoPlay
         className="preview-video"
