@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { postAPI } from '../services/api';
 import { FaMapMarkerAlt, FaTrash } from 'react-icons/fa';
 import './PostCard.css';
 import { postAPI, getMediaUrl } from '../services/api';
