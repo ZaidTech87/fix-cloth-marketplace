@@ -160,13 +160,10 @@ useEffect(() => {
           </Link>
 <Link
   to="/messages"
-  className={`nav-item messages-nav-item ${
-    location.pathname === "/messages" ? "active" : ""
-  }`}
+  className={`nav-item ${location.pathname === "/messages" ? "active" : ""}`}
 >
   <span className="nav-icon-wrap">
     <FaComments />
-
     {unreadCount > 0 && (
       <span className="nav-badge">
         {unreadCount > 9 ? "9+" : unreadCount}
@@ -174,7 +171,7 @@ useEffect(() => {
     )}
   </span>
 
-  <span className="nav-label">Messages</span>
+  <span>Messages</span>
 </Link>
 
 <Link
