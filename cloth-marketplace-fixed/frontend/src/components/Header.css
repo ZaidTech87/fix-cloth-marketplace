@@ -1,3 +1,7 @@
+:root {
+  --nav-icon-size: 20px;
+}
+
 .header {
   background-color: var(--card-bg);
   box-shadow: var(--shadow);
@@ -9,11 +13,11 @@
 .header-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 12px 20px;
+  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
 }
 
 .header-left {
@@ -31,36 +35,40 @@
 }
 
 .logo-icon {
-  font-size: 28px;
+  font-size: 26px;
+  line-height: 1;
 }
 
 .logo-text {
   display: none;
+  white-space: nowrap;
 }
+
+/* ===== Navigation ===== */
 
 .header-nav {
   display: flex;
   flex: 1;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
+  gap: 4px;
   min-width: 0;
 }
 
-.header-nav .nav-item {
-  min-width: 0;
-  flex-shrink: 1;
-}
 .nav-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
-  border-radius: 8px;
+  justify-content: center;
+  gap: 3px;
+  padding: 8px 14px;
+  border-radius: 10px;
   text-decoration: none;
   color: var(--text-secondary);
   font-weight: 500;
-  transition: all 0.2s;
-  font-size: 14px;
+  font-size: 11px;
+  transition: background-color 0.2s, color 0.2s;
+  flex-shrink: 0;
 }
 
 .nav-item:hover {
@@ -68,18 +76,67 @@
   color: var(--primary-color);
 }
 
+.nav-item.active {
+  color: var(--primary-color);
+  background-color: var(--hover-bg);
+}
+
+/* Icon: fixed pixel size, never relies only on font-size so it can't
+   collapse to 0 on mobile browsers that don't scale SVG via font-size. */
 .nav-item svg {
-  font-size: 18px;
+  width: var(--nav-icon-size);
+  height: var(--nav-icon-size);
+  min-width: var(--nav-icon-size);
+  min-height: var(--nav-icon-size);
+  flex-shrink: 0;
+  display: block;
 }
 
 .nav-item span {
   display: none;
+  white-space: nowrap;
 }
+
+.nav-icon-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--nav-icon-size);
+  height: var(--nav-icon-size);
+  flex-shrink: 0;
+}
+
+.nav-icon-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+
+.nav-badge {
+  position: absolute;
+  top: -6px;
+  right: -9px;
+  background-color: #e41e3f;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+/* ===== Right side ===== */
 
 .header-right {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
 }
 
 .user-info {
@@ -102,11 +159,13 @@
 .logout-btn {
   background-color: var(--hover-bg);
   color: var(--text-secondary);
-  padding: 10px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   transition: all 0.2s;
 }
 
@@ -116,14 +175,23 @@
 }
 
 .logout-btn svg {
-  font-size: 18px;
+  width: 17px;
+  height: 17px;
 }
+
+/* ===== Breakpoints: show text labels on wider screens ===== */
 
 @media (min-width: 640px) {
   .logo-text {
     display: inline;
   }
-  
+
+  .nav-item {
+    flex-direction: row;
+    font-size: 14px;
+    padding: 9px 16px;
+  }
+
   .nav-item span {
     display: inline;
   }
@@ -135,38 +203,51 @@
   }
 }
 
-@media (max-width: 640px) {
+/* ===== Mobile tightening ===== */
 
-  .header-left {
-    width: 28px;
-    flex-shrink: 0;
+@media (max-width: 639px) {
+  .header-container {
+    padding: 8px 10px;
+    gap: 6px;
   }
 
-  .header-right {
+  .header-left {
     flex-shrink: 0;
   }
 
   .header-nav {
-      flex: 1;
-      justify-content: space-between;
-      gap: 0;
-      min-width: 0;
-    }
-
-    .header-container {
-      padding: 10px 8px;
-      gap: 8px;
-    }
+    justify-content: space-evenly;
+    gap: 0;
+  }
 
   .nav-item {
-    padding: 6px;
+    padding: 6px 8px;
+    min-width: 40px;
   }
 
-  .nav-item svg {
-    font-size: 17px;
+  :root {
+    --nav-icon-size: 19px;
+  }
+
+  .logout-btn {
+    width: 34px;
+    height: 34px;
   }
 }
-/* Search bar row (below main nav) */
+
+@media (max-width: 360px) {
+  .nav-item {
+    padding: 6px 4px;
+    min-width: 34px;
+  }
+
+  :root {
+    --nav-icon-size: 17px;
+  }
+}
+
+/* ===== Search row ===== */
+
 .header-search-row {
   border-top: 1px solid var(--hover-bg);
   padding: 10px 20px;
@@ -174,7 +255,7 @@
 
 .search-box {
   position: relative;
-  max-width: 220px;
+  max-width: 320px;
   margin: 0 auto;
 }
 
@@ -309,28 +390,9 @@
     padding: 8px 12px;
   }
 }
-.nav-icon-wrap {
-  position: relative;
-  display: inline-flex;
-}
 
-.nav-badge {
-  position: absolute;
-  top: -6px;
-  right: -8px;
-  background-color: #e41e3f;
-  color: white;
-  font-size: 10px;
-  font-weight: 700;
-  min-width: 16px;
-  height: 16px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 4px;
-  line-height: 1;
-}
+/* ===== Logout confirm modal ===== */
+
 .logout-confirm-overlay {
   position: fixed;
   inset: 0;
@@ -339,6 +401,7 @@
   align-items: center;
   justify-content: center;
   z-index: 500;
+  padding: 20px;
 }
 
 .logout-confirm-box {
@@ -346,7 +409,7 @@
   border-radius: 12px;
   padding: 24px;
   max-width: 340px;
-  width: 90%;
+  width: 100%;
   text-align: center;
   box-shadow: var(--shadow-lg);
 }
