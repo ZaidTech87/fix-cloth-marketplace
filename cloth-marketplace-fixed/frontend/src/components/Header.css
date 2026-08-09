@@ -1,6 +1,6 @@
 :root {
-  --nav-icon-size: 20px;
-}
+    --nav-icon-size: 22px;
+  }
 
 .header {
   background-color: var(--card-bg);
@@ -90,6 +90,13 @@
   min-height: var(--nav-icon-size);
   flex-shrink: 0;
   display: block;
+  color: #4b5563;   /* strong, hardcoded dark gray - kisi variable pe depend nahi */
+  fill: #4b5563;
+}
+
+.nav-item.active svg {
+  color: #1877f2;   /* strong blue jab active ho */
+  fill: #1877f2;
 }
 
 .nav-item span {
