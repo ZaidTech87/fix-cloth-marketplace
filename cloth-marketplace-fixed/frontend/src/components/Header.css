@@ -83,25 +83,25 @@
 
 /* Icon: fixed pixel size, never relies only on font-size so it can't
    collapse to 0 on mobile browsers that don't scale SVG via font-size. */
-.nav-item svg {
-  width: var(--nav-icon-size);
-  height: var(--nav-icon-size);
-  min-width: var(--nav-icon-size);
-  min-height: var(--nav-icon-size);
-  flex-shrink: 0;
-  display: block;
-  color: #4b5563;   /* strong, hardcoded dark gray - kisi variable pe depend nahi */
-  fill: #4b5563;
-}
 
+.nav-item svg {
+    width: var(--nav-icon-size);
+    height: var(--nav-icon-size);
+    min-width: var(--nav-icon-size);
+    min-height: var(--nav-icon-size);
+    flex-shrink: 0;
+    display: block;
+    color: #4b5563;
+    fill: #4b5563;
+}
 .nav-item.active svg {
   color: #1877f2;   /* strong blue jab active ho */
   fill: #1877f2;
 }
 
-.nav-item span {
-  display: none;
-  white-space: nowrap;
+.nav-item > span:not(.nav-icon-wrap) {
+    display: none;
+    white-space: nowrap;
 }
 
 .nav-icon-wrap {
@@ -190,9 +190,11 @@
 /* ===== Breakpoints: show text labels on wider screens ===== */
 
 @media (min-width: 640px) {
-  .logo-text {
-    display: inline;
-  }
+    .nav-item > span:not(.nav-icon-wrap) {
+        display: inline;
+        white-space: nowrap;
+    }
+}
 
   .nav-item {
     flex-direction: row;
@@ -214,9 +216,10 @@
 /* ===== Mobile tightening ===== */
 
 @media (max-width: 639px) {
+
     .header-container {
         padding: 8px 10px;
-        gap: 4px;
+        gap: 6px;
     }
 
     .header-nav {
@@ -229,23 +232,16 @@
     }
 
     .nav-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 6px 7px;
-        min-width: 38px;
+        padding: 6px 8px;
+        min-width: 40px;
         flex-shrink: 0;
     }
 
-    .nav-item svg {
-        display: block;
-        width: 19px;
-        height: 19px;
-    }
-
+    /* Icon wrapper MUST remain visible */
     .nav-icon-wrap {
         display: inline-flex;
+        align-items: center;
+        justify-content: center;
         width: 19px;
         height: 19px;
         flex-shrink: 0;
@@ -257,7 +253,8 @@
         height: 100%;
     }
 
-    .nav-item span:not(.nav-icon-wrap) {
+    /* Only text label hidden on mobile */
+    .nav-item > span:not(.nav-icon-wrap) {
         display: none;
     }
 
