@@ -122,7 +122,7 @@ const PostCard = ({ post, onPostDeleted, showDelete = false }) => {
           <div className="post-avatar">
             {userProfileImage ? (
               <img
-              src={getMediaUrl(x)}
+              src={getMediaUrl(userProfileImage)}
                 alt={userName}
                 onError={(e) => {
                   e.target.style.display = 'none';
@@ -196,14 +196,14 @@ const PostCard = ({ post, onPostDeleted, showDelete = false }) => {
         <div className="post-media">
           {post.mediaType === 'video' ? (
            <video
-             src={getMediaUrl(e.mediaUrl)}
+             src={getMediaUrl(post.mediaUrl)}
                controls
                className="post-video"
                onClick={() => setPreviewMedia("video")}
            />
           ) : (
             <img
-                src={getMediaUrl(e.mediaUrl)}
+                src={getMediaUrl(post.mediaUrl)}
                 alt="Post media"
                 className="post-image"
                 onClick={() => setPreviewMedia("image")}
@@ -256,14 +256,14 @@ const PostCard = ({ post, onPostDeleted, showDelete = false }) => {
 
     {previewMedia === "image" ? (
       <img
-       src={getMediaUrl(e.mediaUrl)}
+       src={getMediaUrl(post.mediaUrl)}
         className="preview-image"
         onClick={(e) => e.stopPropagation()}
         alt="Preview"
       />
     ) : (
       <video
-        src={getMediaUrl(e.mediaUrl)}
+        src={getMediaUrl(post.mediaUrl)}
         controls
         autoPlay
         className="preview-video"
