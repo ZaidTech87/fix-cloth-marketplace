@@ -105,18 +105,19 @@
 }
 
 .nav-icon-wrap {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--nav-icon-size);
-  height: var(--nav-icon-size);
-  flex-shrink: 0;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--nav-icon-size);
+    height: var(--nav-icon-size);
+    flex-shrink: 0;
 }
 
 .nav-icon-wrap svg {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 .nav-badge {
@@ -213,33 +214,61 @@
 /* ===== Mobile tightening ===== */
 
 @media (max-width: 639px) {
-  .header-container {
-    padding: 8px 10px;
-    gap: 6px;
-  }
+    .header-container {
+        padding: 8px 10px;
+        gap: 4px;
+    }
 
-  .header-left {
-    flex-shrink: 0;
-  }
+    .header-nav {
+        display: flex;
+        flex: 1;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 0;
+        min-width: 0;
+    }
 
-  .header-nav {
-    justify-content: space-evenly;
-    gap: 0;
-  }
+    .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 7px;
+        min-width: 38px;
+        flex-shrink: 0;
+    }
 
-  .nav-item {
-    padding: 6px 8px;
-    min-width: 40px;
-  }
+    .nav-item svg {
+        display: block;
+        width: 19px;
+        height: 19px;
+    }
 
-  :root {
-    --nav-icon-size: 19px;
-  }
+    .nav-icon-wrap {
+        display: inline-flex;
+        width: 19px;
+        height: 19px;
+        flex-shrink: 0;
+    }
 
-  .logout-btn {
-    width: 34px;
-    height: 34px;
-  }
+    .nav-icon-wrap svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    .nav-item span:not(.nav-icon-wrap) {
+        display: none;
+    }
+
+    :root {
+        --nav-icon-size: 19px;
+    }
+
+    .logout-btn {
+        width: 34px;
+        height: 34px;
+    }
 }
 
 @media (max-width: 360px) {
