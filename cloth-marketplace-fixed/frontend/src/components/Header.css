@@ -482,12 +482,4 @@
 .logout-confirm-ok:hover {
   opacity: 0.85;
 }
-<FaComments
-    style={{
-        display: "block",
-        width: "22px",
-        height: "22px",
-        color: "#ff0000",
-        fill: "currentColor"
-    }}
-/>
+
