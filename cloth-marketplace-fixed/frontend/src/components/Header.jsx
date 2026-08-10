@@ -165,7 +165,7 @@ useEffect(() => {
     location.pathname === "/messages" ? "active" : ""
   }`}
 >
-  <FaComments />
+  <b style={{ color: "red", fontSize: "22px" }}>M</b>
   <span>Messages</span>
 </Link>
 
