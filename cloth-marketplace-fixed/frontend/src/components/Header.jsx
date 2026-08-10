@@ -4,13 +4,13 @@ import { useAuth } from '../context/AuthContext';
 import {
   FaHome,
   FaUser,
-  FaComments,
+  FaCommentDots,
   FaPlus,
   FaSignOutAlt,
   FaSearch,
   FaTimes
 } from 'react-icons/fa';
-// import { userAPI } from '../services/api';
+
 import { userAPI, getMediaUrl } from '../services/api';
 import { messageAPI } from '../services/api';
 
@@ -180,7 +180,7 @@ useEffect(() => {
     location.pathname.includes("/profile") ? "active" : ""
   }`}
 >
-  <FaUser size={20} color={location.pathname.includes("/profile") ? "#1877f2" : "#4b5563"} />
+  <FaCommentDots size={20} color={location.pathname === "/messages" ? "#1877f2" : "#4b5563"} />
   <span>Profile</span>
 </Link>
 

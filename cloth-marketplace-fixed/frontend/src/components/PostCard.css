@@ -433,3 +433,19 @@
         opacity:1;
     }
 }
+
+.nav-icon-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--nav-icon-size) + 10px);
+  height: calc(var(--nav-icon-size) + 10px);
+  flex-shrink: 0;
+  background-color: rgba(75, 85, 99, 0.08);
+  border-radius: 50%;
+}
+
+.nav-item.active .nav-icon-wrap {
+  background-color: rgba(24, 119, 242, 0.12);
+}
