@@ -158,19 +158,14 @@ useEffect(() => {
             <FaPlus size={20} color={location.pathname === "/create-post" ? "#1877f2" : "#4b5563"} />
             <span>Post</span>
           </Link>
+
 <Link
   to="/messages"
-  className={`nav-item ${location.pathname === "/messages" ? "active" : ""}`}
+  className={`nav-item ${
+    location.pathname === "/messages" ? "active" : ""
+  }`}
 >
-  <span className="nav-icon-wrap">
-    <FaComments size={20} color={location.pathname === "/messages" ? "#1877f2" : "#4b5563"} />
-    {unreadCount > 0 && (
-      <span className="nav-badge">
-        {unreadCount > 9 ? "9+" : unreadCount}
-      </span>
-    )}
-  </span>
-
+  <FaComments />
   <span>Messages</span>
 </Link>
 
