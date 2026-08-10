@@ -147,7 +147,7 @@ useEffect(() => {
             className={`nav-item ${location.pathname === "/" ? "active" : ""}`}
             onClick={handleFeedClick}
           >
-            <FaHome />
+            <FaHome size={20} color={location.pathname === "/" ? "#1877f2" : "#4b5563"} />
             <span>Feed</span>
           </Link>
 
@@ -155,7 +155,7 @@ useEffect(() => {
             to="/create-post"
             className={`nav-item ${location.pathname === "/create-post" ? "active" : ""}`}
           >
-            <FaPlus />
+            <FaPlus size={20} color={location.pathname === "/create-post" ? "#1877f2" : "#4b5563"} />
             <span>Post</span>
           </Link>
 <Link
@@ -163,7 +163,7 @@ useEffect(() => {
   className={`nav-item ${location.pathname === "/messages" ? "active" : ""}`}
 >
   <span className="nav-icon-wrap">
-    <FaComments />
+    <FaComments size={20} color={location.pathname === "/messages" ? "#1877f2" : "#4b5563"} />
     {unreadCount > 0 && (
       <span className="nav-badge">
         {unreadCount > 9 ? "9+" : unreadCount}
@@ -180,7 +180,7 @@ useEffect(() => {
     location.pathname.includes("/profile") ? "active" : ""
   }`}
 >
-  <FaUser />
+  <FaUser size={20} color={location.pathname.includes("/profile") ? "#1877f2" : "#4b5563"} />
   <span>Profile</span>
 </Link>
 
