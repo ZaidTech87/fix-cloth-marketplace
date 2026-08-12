@@ -4,11 +4,11 @@ import { useAuth } from '../context/AuthContext';
 import { authAPI } from '../services/api';
 import './Auth.css';
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
 
-const [showPassword, setShowPassword] = useState(false);
+
 
 const SignUp = () => {
+    const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     location: '',
