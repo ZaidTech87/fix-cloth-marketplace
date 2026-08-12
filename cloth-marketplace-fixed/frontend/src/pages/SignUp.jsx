@@ -3,6 +3,10 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { authAPI } from '../services/api';
 import './Auth.css';
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+
+const [showPassword, setShowPassword] = useState(false);
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -87,17 +91,25 @@ const SignUp = () => {
             />
           </div>
 
-          <div className="form-group">
-            <input
-              type="password"
-              name="password"
-              placeholder="Password (min 6 characters)"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              minLength="6"
-            />
-          </div>
+         <div className="form-group password-group">
+           <input
+             type={showPassword ? "text" : "password"}
+             name="password"
+             placeholder="Password (min 6 characters)"
+             value={formData.password}
+             onChange={handleChange}
+             required
+             minLength={6}
+           />
+
+           <button
+             type="button"
+             className="password-toggle"
+             onClick={() => setShowPassword(!showPassword)}
+           >
+             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+           </button>
+         </div>
 
           <button type="submit" className="btn-primary btn-full" disabled={loading}>
             {loading ? 'Creating Account...' : 'Sign Up'}
