@@ -1,5 +1,5 @@
 /* =========================================================
-   HAMBURGER BUTTON - DESKTOP DEFAULT
+   HAMBURGER BUTTON - DESKTOP
    ========================================================= */
 
 .hamburger-btn {
@@ -40,8 +40,8 @@
 
   .header {
     width: 100% !important;
-    height: 68px !important;
-    min-height: 68px !important;
+    height: 60px !important;
+    min-height: 60px !important;
 
     padding: 0 !important;
     margin: 0 !important;
@@ -59,8 +59,8 @@
 
   .header-container {
     width: 100% !important;
-    height: 68px !important;
-    min-height: 68px !important;
+    height: 60px !important;
+    min-height: 60px !important;
 
     display: flex !important;
     align-items: center !important;
@@ -72,7 +72,7 @@
 
 
   /* -------------------------------------------------------
-     HIDE DESKTOP ELEMENTS
+     HIDE DESKTOP HEADER ELEMENTS
      ------------------------------------------------------- */
 
   .header-left {
@@ -106,7 +106,7 @@
 
   .header-right {
     width: 100% !important;
-    height: 68px !important;
+    height: 60px !important;
 
     display: flex !important;
     align-items: center !important;
@@ -118,7 +118,7 @@
 
 
   /* -------------------------------------------------------
-     HAMBURGER
+     HAMBURGER BUTTON
      ------------------------------------------------------- */
 
   .hamburger-btn {
@@ -211,7 +211,7 @@
 
 
   /* -------------------------------------------------------
-     MOBILE MENU ITEMS
+     MOBILE MENU ITEM
      ------------------------------------------------------- */
 
   .mobile-menu-item {
@@ -254,7 +254,7 @@
 
 
   /* -------------------------------------------------------
-     MESSAGE UNREAD BADGE
+     MESSAGES UNREAD BADGE
      ------------------------------------------------------- */
 
   .mobile-menu-badge {
@@ -289,10 +289,7 @@
 
     margin: 8px 0 !important;
 
-    background-color: var(
-      --border-color,
-      #e5e7eb
-    ) !important;
+    background-color: var(--border-color, #e5e7eb) !important;
   }
 
 
@@ -307,11 +304,5 @@
   .mobile-menu-logout:hover {
     background-color: #fee !important;
     color: #dc3545 !important;
-  }
-}
-
-@media screen and (max-width: 639px) {
-  .header {
-    background: red !important;
   }
 }
