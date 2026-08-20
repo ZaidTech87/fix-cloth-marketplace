@@ -267,13 +267,18 @@ const Header = () => {
 
             <Link
               to="/messages"
-              className={`mobile-menu-item ${location.pathname === "/messages" ? "active" : ""}`}
+              className={`mobile-menu-item ${
+                location.pathname === "/messages" ? "active" : ""
+              }`}
               onClick={handleNavClick}
             >
               <FaCommentDots size={20} />
               <span>Messages</span>
+
               {unreadCount > 0 && (
-                <span className="mobile-menu-badge">{unreadCount > 9 ? "9+" : unreadCount}</span>
+                <span className="mobile-menu-badge">
+                  {unreadCount > 9 ? "9+" : unreadCount}
+                </span>
               )}
             </Link>
 
