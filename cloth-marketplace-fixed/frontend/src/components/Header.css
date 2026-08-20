@@ -306,3 +306,21 @@
     color: #dc3545 !important;
   }
 }
+
+@media screen and (max-width: 1000px) {
+  .header {
+    background: red !important;
+  }
+
+  .header-left,
+  .header-nav,
+  .user-info,
+  .header-search-row {
+    display: none !important;
+  }
+
+  .hamburger-btn {
+    display: flex !important;
+    color: white !important;
+  }
+}
