@@ -309,3 +309,9 @@
     color: #dc3545 !important;
   }
 }
+
+@media screen and (max-width: 639px) {
+  .header {
+    background: red !important;
+  }
+}
