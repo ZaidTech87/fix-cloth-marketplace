@@ -6,7 +6,7 @@ import com.clothmarket.dto.SignUpRequest;
 import com.clothmarket.model.User;
 import com.clothmarket.repository.UserRepository;
 import com.clothmarket.service.AuthService;
-
+import com.clothmarket.service.Fast2SmsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +26,7 @@ public class AuthController {
     private final AuthService authService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final Fast2SmsService fast2SmsService;
 
     // ✅ OTP storage (temporary)
     private Map<String, String> otpStorage = new HashMap<>();
@@ -54,25 +55,47 @@ public class AuthController {
         }
     }
     @PostMapping("/forgot-password")
-    public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> request) {
+    public ResponseEntity<?> forgotPassword(
+            @RequestBody Map<String, String> request) {
+
         try {
             String mobile = request.get("mobile");
+
             if (mobile == null || mobile.isBlank()) {
-                return ResponseEntity.badRequest().body(new ErrorResponse("Mobile number is required"));
+                return ResponseEntity.badRequest()
+                        .body(new ErrorResponse("Mobile number is required"));
             }
 
             userRepository.findByMobile(mobile)
-                    .orElseThrow(() -> new RuntimeException("User not found"));
+                    .orElseThrow(() ->
+                            new RuntimeException("User not found"));
 
-            String otp = String.valueOf((int) (Math.random() * 900000) + 100000);
+            // Generate 6-digit OTP
+            String otp = String.valueOf(
+                    (int) (Math.random() * 900000) + 100000
+            );
+
+            // Existing OTP storage
             otpStorage.put(mobile, otp);
 
-            System.out.println("OTP for " + mobile + ": " + otp);
+            // Console logging for development
+            System.out.println(
+                    "OTP for " + mobile + ": " + otp
+            );
+
+            // NEW: Send OTP through Fast2SMS
+            fast2SmsService.sendOtp(mobile, otp);
 
             return ResponseEntity.ok("OTP sent");
+
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ErrorResponse(e.getMessage()));
+
+            e.printStackTrace();
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponse(
+                            "Failed to send OTP: " + e.getMessage()
+                    ));
         }
     }
 
