@@ -11,7 +11,6 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-    // STEP 4 FIX: hardcoded localhost origins ki jagah env var
     @Value("${allowed.origins}")
     private String allowedOrigins;
 
@@ -24,13 +23,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
 
-        // Existing endpoint
+        // Web frontend — SockJS
         registry.addEndpoint("/ws")
                 .setAllowedOrigins(allowedOrigins.split(","))
                 .withSockJS();
 
-        // Android native WebSocket endpoint
+        // Android — Native WebSocket
         registry.addEndpoint("/ws-native")
-                .setAllowedOrigins(allowedOrigins.split(","));
+                .setAllowedOriginPatterns("*");
     }
 }

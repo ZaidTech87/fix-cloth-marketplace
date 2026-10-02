@@ -4,6 +4,7 @@ import com.clothmarket.security.JwtAuthenticationFilter;
 import com.clothmarket.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,16 +21,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * STEP 1 + STEP 4 FIX:
- * - Public endpoints: /auth/** (signup/login/forgot-reset password) and /uploads/**
- *   (publicly viewable media, same as before).
- * - Everything else now REQUIRES a valid JWT (authenticated()), enforced by
- *   JwtAuthenticationFilter running before Spring Security's own filter.
- * - CORS origins now come from an environment variable / application property
- *   ("allowed.origins") instead of being hardcoded to localhost, so this works
- *   in production without code changes (Step 4).
- */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -44,15 +35,20 @@ public class SecurityConfig {
         return new JwtAuthenticationFilter(jwtUtil);
     }
 
-    // IMPORTANT: Spring Boot auto-registers ANY bean of type Filter into the
-    // servlet container. Since we ALSO add this filter into the Security
-    // chain below (addFilterBefore), we must disable that auto-registration
-    // here - otherwise the filter would run twice per request.
+    /**
+     * Prevent JwtAuthenticationFilter from being automatically
+     * registered as a servlet filter.
+     *
+     * It is manually added to the Spring Security chain below.
+     */
     @Bean
-    public org.springframework.boot.web.servlet.FilterRegistrationBean<JwtAuthenticationFilter> disableAutoRegistration() {
-        org.springframework.boot.web.servlet.FilterRegistrationBean<JwtAuthenticationFilter> registration =
-                new org.springframework.boot.web.servlet.FilterRegistrationBean<>(jwtAuthenticationFilter());
+    public FilterRegistrationBean<JwtAuthenticationFilter> disableAutoRegistration() {
+
+        FilterRegistrationBean<JwtAuthenticationFilter> registration =
+                new FilterRegistrationBean<>(jwtAuthenticationFilter());
+
         registration.setEnabled(false);
+
         return registration;
     }
 
@@ -61,32 +57,97 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * CORS configuration.
+     *
+     * allowed.origins comes from application properties / Render env.
+     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(List.of("*"));
+
+        config.setAllowedOrigins(
+                Arrays.asList(allowedOrigins.split(","))
+        );
+
+        config.setAllowedMethods(
+                List.of(
+                        "GET",
+                        "POST",
+                        "PUT",
+                        "DELETE",
+                        "OPTIONS"
+                )
+        );
+
+        config.setAllowedHeaders(
+                List.of("*")
+        );
+
         config.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration(
+                "/**",
+                config
+        );
+
         return source;
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http
+    ) throws Exception {
+
         http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/uploads/**").permitAll()
-                        .requestMatchers("/ws/**").permitAll() // websocket handshake (Step 6)
-                        .anyRequest().authenticated()
+                .cors(cors ->
+                        cors.configurationSource(
+                                corsConfigurationSource()
+                        )
                 )
-                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+                .csrf(csrf ->
+                        csrf.disable()
+                )
+
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(
+                                SessionCreationPolicy.STATELESS
+                        )
+                )
+
+                .authorizeHttpRequests(auth ->
+                        auth
+
+                                // Authentication APIs
+                                .requestMatchers("/auth/**")
+                                .permitAll()
+
+                                // Public uploaded media
+                                .requestMatchers("/uploads/**")
+                                .permitAll()
+
+                                // Existing Web frontend SockJS endpoint
+                                .requestMatchers("/ws/**")
+                                .permitAll()
+
+                                // Android native WebSocket endpoint
+                                .requestMatchers("/ws-native/**")
+                                .permitAll()
+
+                                // Everything else requires JWT
+                                .anyRequest()
+                                .authenticated()
+                )
+
+                .addFilterBefore(
+                        jwtAuthenticationFilter(),
+                        UsernamePasswordAuthenticationFilter.class
+                );
 
         return http.build();
     }
